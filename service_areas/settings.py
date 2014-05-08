@@ -12,8 +12,6 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 from unipath import Path
 BASE_DIR = Path(__file__).parent
 
-print BASE_DIR
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
