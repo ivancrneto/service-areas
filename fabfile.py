@@ -101,6 +101,8 @@ def deploy():
     WORKON = 'source /home/ubuntu/.virtualenvs/service-areas/bin/activate'
     with prefix(WORKON), cd('/home/ubuntu/service-areas/'):
         run('mkdir -p static')
+        run('mkdir -p public')
+        run('mkdir -p logs/nginx')
         run('git checkout -f')
         run('git pull')
         #clean pyc
