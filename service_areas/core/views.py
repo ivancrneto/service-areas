@@ -3,6 +3,7 @@ of our application"""
 
 from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse as r
+from service_areas.util.decorators import render_to_json
 
 
 def home(request):
@@ -13,6 +14,12 @@ def home(request):
 
 def draw(request):
     return render(request, 'draw.html', {})
+
+@render_to_json()
+def submit_draw(request):
+    print request.POST.getlist('points[]')
+
+    return {'success': True}
 
 def query(request):
     return render(request, 'query.html', {})

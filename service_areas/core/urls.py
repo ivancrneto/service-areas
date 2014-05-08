@@ -6,5 +6,6 @@ admin.autodiscover()
 urlpatterns = patterns('service_areas.core.views',
     url(r'^$', 'home', name='home'),
     url(r'draw$', 'draw', name='draw'),
+    url(r'draw/submit$', 'submit_draw', name='submit_draw'),
     url(r'query$', 'query', name='query'),
 )
