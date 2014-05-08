@@ -9,15 +9,17 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+from unipath import Path
+BASE_DIR = Path(__file__).parent
+
+print BASE_DIR
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 't@vq(7y$4fig!^@bnqrs-n&iqxqempu)61!5lgg42k6+*+b^px'
+SECRET_KEY = 'n@vq(7y$4fig!^@anqrs-n&iqxqempu)v1!5lgg42k6+*+b^pI'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -71,7 +73,7 @@ WSGI_APPLICATION = 'service_areas.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': BASE_DIR.child('db.sqlite3'),
     }
 }
 
@@ -93,9 +95,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR.parent.child('static')
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "service_areas/static"),
+    BASE_DIR.child('static'),
 )
 
 try:
