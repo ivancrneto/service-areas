@@ -90,7 +90,7 @@
           return;
       }
 
-      latLng = event.latLng;
+      var latLng = event.latLng;
       serviceAreas.draw.points.push(latLng);
 
       // to form a polygon, we must have more than 2 points clicked
