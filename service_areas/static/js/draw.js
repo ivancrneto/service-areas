@@ -5,7 +5,17 @@
     isdrawing: false, // we start with isdrawing control as false
 
     init: function() {
-      $('button[name="draw-area"]').click(serviceAreas.draw.start);
+      $('button[name="draw-area"]').click(function() {
+        $(this).hide();
+        $('button[name="finish-draw-area"]').show();
+        serviceAreas.draw.start();
+      });
+
+      $('button[name="finish-draw-area"]').click(function() {
+        $(this).hide();
+        $('button[name="draw-area"]').show();
+        serviceAreas.draw.finish();
+      });
       $('button[name="clear-area"]').click(serviceAreas.draw.clear);
 
       // here we can use the map object set up in maps.js
@@ -26,10 +36,14 @@
       serviceAreas.draw.isdrawing = true;
     },
 
+    finish: function() {
+      // just set is drawing to false;
+      serviceAreas.draw.isdrawing = false;
+    },
+
     clear: function() {
       serviceAreas.draw.pol.setMap(null);
       serviceAreas.draw.points = [];
-      serviceAreas.draw.isdrawing = false;
     },
 
     mapClicked: function(event) {
