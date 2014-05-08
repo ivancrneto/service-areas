@@ -2,6 +2,7 @@
 <html lang="en">
   {% load staticfiles %}
   {% load i18n %}
+  {% load navigation %}
   <head>
     <meta charset = "utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,10 +22,10 @@
   </head>
   <body>
     <nav class="navbar navbar-inverse">
-      <a class="navbar-brand" href="#">Service Areas</a>
+      <a class="navbar-brand" href="{% url 'core:home' %}">Service Areas</a>
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Draw</a></li>
-        <li><a href="#">Query</a></li>
+        <li class="{% navactive request 'core:draw' %}"><a href="{% url 'core:draw' %}">Draw</a></li>
+        <li class="{% navactive request 'core:query' %}"><a href="{% url 'core:query' %}">Query</a></li>
       </ul>
     </nav>
 
