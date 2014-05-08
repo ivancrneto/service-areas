@@ -6,15 +6,14 @@
 
     init: function() {
       $('button[name="draw-area"]').click(serviceAreas.draw.start);
+      $('button[name="clear-area"]').click(serviceAreas.draw.clear);
 
       // here we can use the map object set up in maps.js
       google.maps.event.addListener(serviceAreas.map.mapobj, 'click',
         serviceAreas.draw.mapClicked);
     },
 
-    start: function () {
-      serviceAreas.draw.isdrawing = true;
-
+    start: function() {
       // if there is no polygon, we create one
       if (!serviceAreas.draw.pol) {
         serviceAreas.draw.pol = new google.maps.Polygon({map: null, paths: [],
@@ -22,11 +21,18 @@
           strokeColor: "#0000ff", strokeOpacity: 0.45, clickable: false
         });
       }
-      serviceAreas.draw.pol.setMap(null);
-      serviceAreas.draw.points = [];
+
+      serviceAreas.draw.clear();
+      serviceAreas.draw.isdrawing = true;
     },
 
-    mapClicked: function (event) {
+    clear: function() {
+      serviceAreas.draw.pol.setMap(null);
+      serviceAreas.draw.points = [];
+      serviceAreas.draw.isdrawing = false;
+    },
+
+    mapClicked: function(event) {
       if (!serviceAreas.draw.isdrawing) {
           return;
       }
