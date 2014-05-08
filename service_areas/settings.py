@@ -49,6 +49,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'django.core.context_processors.media',
     'django.contrib.auth.context_processors.auth',
+    'service_areas.core.context.google_maps_api_key',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -90,6 +91,8 @@ USE_L10N = True
 
 USE_TZ = True
 
+
+GOOGLE_MAPS_API_KEY = 'AIzaSyD2rNzcatObNTSex0H7NBd3cIwAjxTfzPk'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/

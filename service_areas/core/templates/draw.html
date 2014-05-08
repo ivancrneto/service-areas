@@ -7,17 +7,6 @@
 {% endblock %}
 
 {% block content %}
-<script type="text/javascript">
-  function initialize() {
-    var mapOptions = {
-      center: new google.maps.LatLng(-34.397, 150.644),
-      zoom: 8,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-    var map = new google.maps.Map(document.getElementById("map_canvas"),
-        mapOptions);
-  }
-</script>
 
 <div class="row-fluid">
   <div class="col-lg-12 vspace">
@@ -38,10 +27,5 @@
     <div id="map_canvas" style="width:100%; height:650px"></div>
   </div>
 </div>
-
-<script type="text/javascript">
-  initialize();
-</script>
-
 
 {% endblock content %}

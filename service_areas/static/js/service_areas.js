@@ -1,3 +1,3 @@
 (function() {
-  service_areas = {};
+  serviceAreas = {};
 })();
