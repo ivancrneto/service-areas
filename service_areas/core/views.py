@@ -17,15 +17,14 @@ def draw(request):
 
 @render_to_json()
 def submit_draw(request):
-    print request.POST.getlist('points[]')
+    points = request.POST.getlist('points[]')
+    points = [map(float, p.split(',')) for p in points]
+
+    request.session['points'] = points
 
     return {'success': True}
 
 def query(request):
-    points = [[37.80286695148153, -122.41104125976562],
-              [37.80042550214271, -122.46288299560547],
-              [37.7688150141044, -122.4781608581543],
-              [37.76379407899244, -122.4235725402832],
-              [37.77709202770888, -122.39645004272461]]
+    points = request.session['points']
 
     return render(request, 'query.html', {'points': points})
