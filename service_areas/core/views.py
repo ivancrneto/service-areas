@@ -28,3 +28,10 @@ def query(request):
     points = request.session['points']
 
     return render(request, 'query.html', {'points': points})
+
+@render_to_json()
+def query_area(request):
+    point = request.GET['point']
+
+    import random
+    return {'success': True, 'result': bool(random.randint(0, 1))}

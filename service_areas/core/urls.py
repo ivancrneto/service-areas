@@ -8,4 +8,5 @@ urlpatterns = patterns('service_areas.core.views',
     url(r'draw$', 'draw', name='draw'),
     url(r'draw/submit$', 'submit_draw', name='submit_draw'),
     url(r'query$', 'query', name='query'),
+    url(r'query_area$', 'query_area', name='query_area'),
 )
