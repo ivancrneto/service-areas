@@ -17,6 +17,7 @@
         serviceAreas.draw.finish();
       });
       $('button[name="clear-area"]').click(serviceAreas.draw.clear);
+      $('button[name="submit-area"]').click(serviceAreas.draw.submit);
 
       // here we can use the map object set up in maps.js
       google.maps.event.addListener(serviceAreas.map.mapobj, 'click',
@@ -44,6 +45,44 @@
     clear: function() {
       serviceAreas.draw.pol.setMap(null);
       serviceAreas.draw.points = [];
+    },
+
+    submit: function() {
+      if(!serviceAreas.draw.points.length) {
+        alert('You should draw an area before submitting.');
+        return;
+      }
+
+      // format points that are in latLng Google format to string with commas
+      var points = []
+      for(p in serviceAreas.draw.points) {
+        points.push(serviceAreas.draw.points[p].lat() + ','
+            + serviceAreas.draw.points[p].lng());
+      }
+
+      // submit the points is enough
+      var url = $(this).data('url');
+      var data = {
+        points: points,
+        csrfmiddlewaretoken: $('[name="csrfmiddlewaretoken"]').val()
+      }
+
+      $.ajax({
+        url: url,
+        type: 'POST',
+        data: data,
+        success: function(data) {
+          if(data.success == true) {
+            alert('Area submitted sucessfully.');
+          } else {
+            alert(data.message);
+          }
+        },
+        error: function() {
+          alert('An error occurred. Please try again.');
+        }
+      });
+
     },
 
     mapClicked: function(event) {

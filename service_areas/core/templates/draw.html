@@ -19,7 +19,8 @@
     <button type="button" class="btn btn-default" name="clear-area">
       <i class="glyphicon glyphicon-trash"></i>
       Clear</button>
-    <button type="button" class="btn btn-primary">
+    {% csrf_token %}
+    <button type="button" class="btn btn-primary" name="submit-area" data-url="{% url 'core:submit_draw' %}">
       <i class="glyphicon glyphicon-share-alt"></i>
       Submit</button>
   </div>
