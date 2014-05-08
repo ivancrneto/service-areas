@@ -43,10 +43,9 @@
       }
 
       var point = event.latLng.lat() + ',' + event.latLng.lng();
-      console.log(point);
 
       // submit the points is enough
-      var url = $(this).data('url');
+      var url = $('[name="query-url"]').val();
       var data = {
         point: point,
         csrfmiddlewaretoken: $('[name="csrfmiddlewaretoken"]').val()
@@ -58,7 +57,18 @@
         data: data,
         success: function(data) {
           if(data.success == true) {
-            alert('Area submitted sucessfully.');
+            var alertMsg = $('[name="alert-message"]');
+            if(data.result == true) {
+              alertMsg.text('This area is covered by us!');
+              alertMsg.addClass('alert-success');
+              alertMsg.removeClass('alert-danger');
+            } else {
+              alertMsg.text('This area is not covered by us...');
+              alertMsg.addClass('alert-danger');
+              alertMsg.removeClass('alert-success');
+            }
+            alertMsg.show();
+            setTimeout(alertMsg.hide, 1000);
           } else {
             alert(data.message);
           }
