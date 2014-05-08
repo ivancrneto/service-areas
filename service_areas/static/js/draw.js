@@ -48,7 +48,7 @@
     },
 
     submit: function() {
-      if(!serviceAreas.draw.points.length) {
+      if(serviceAreas.draw.points.length < 3) {
         alert('You should draw an area before submitting.');
         return;
       }
