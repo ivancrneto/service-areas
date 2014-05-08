@@ -1,19 +1,73 @@
 (function() {
   serviceAreas.query = {
     pol: null,
+    isquerying: false,
 
     init: function() {
       for(p in points) {
         points[p] = new google.maps.LatLng(points[p][0], points[p][1]);
       }
 
+      // draw the polygon in map
       serviceAreas.query.pol = new google.maps.Polygon({
         map: serviceAreas.map.mapobj, paths: points,
         fillColor: "#8888ff", fillOpacity: 0.35,
         strokeColor: "#0000ff", strokeOpacity: 0.45, clickable: false
       });
 
-      serviceAreas.query.pol.setMap(serviceAreas.map.mapobj);
+      $('button[name="query-area"]').mouseup(serviceAreas.query.handleQuery);
+
+      // here we can use the map object set up in maps.js
+      google.maps.event.addListener(serviceAreas.map.mapobj, 'click',
+        serviceAreas.query.mapClicked);
+    },
+
+    handleQuery: function(e) {
+      e.preventDefault();
+
+      // for some reason bootstrap takes long to add the class active to
+      // a clicked checkbox
+      var button = $(this);
+      setTimeout(function(){
+        if(button.hasClass('active')) {
+          serviceAreas.query.isquerying = true;
+        } else {
+          serviceAreas.query.isquerying = false;
+        }
+      }, 100);
+    },
+
+    mapClicked: function(event) {
+      if (!serviceAreas.query.isquerying) {
+          return;
+      }
+
+      var point = event.latLng.lat() + ',' + event.latLng.lng();
+      console.log(point);
+
+      // submit the points is enough
+      var url = $(this).data('url');
+      var data = {
+        point: point,
+        csrfmiddlewaretoken: $('[name="csrfmiddlewaretoken"]').val()
+      }
+
+      $.ajax({
+        url: url,
+        type: 'GET',
+        data: data,
+        success: function(data) {
+          if(data.success == true) {
+            alert('Area submitted sucessfully.');
+          } else {
+            alert(data.message);
+          }
+        },
+        error: function() {
+          alert('An error occurred. Please try again.');
+        }
+      });
+
     }
   };
 
