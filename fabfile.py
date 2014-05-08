@@ -19,7 +19,7 @@ env.roledefs = {
     'production': ['ubuntu@54.235.156.174'],
 }
 
-env.path = '/home/ubuntu/service-area'
+env.path = '/home/ubuntu/service-areas'
 env.activate = 'source /home/ubuntu/.virtualenvs/service-areas/bin/activate'
 env.colors = True
 env.format = True
