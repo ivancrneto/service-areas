@@ -99,7 +99,8 @@ def deploy_dev(branch='master'):
 def deploy():
     """deploy to production server"""
     WORKON = 'source /home/ubuntu/.virtualenvs/service-areas/bin/activate'
-    with prefix(WORKON), cd('/home/ubuntu/service_areas/'):
+    with prefix(WORKON), cd('/home/ubuntu/service-areas/'):
+        run('mkdir -p static')
         run('git checkout -f')
         run('git pull')
         #clean pyc
@@ -109,5 +110,5 @@ def deploy():
         run('python manage.py syncdb')
         run('python manage.py collectstatic --noinput')
         time.sleep(3)
-        run('/home/ubuntu/service_areas/restart.sh', pty=False)
+        run('/home/ubuntu/service-areas/restart.sh', pty=False)
         sys.exit()
