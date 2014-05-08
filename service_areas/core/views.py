@@ -13,10 +13,14 @@ def home(request):
     return redirect(r('core:draw'))
 
 def draw(request):
+    """ This view just returns the html for the draw page """
     return render(request, 'draw.html', {})
 
 @render_to_json()
 def submit_draw(request):
+    """ This view handles the submission of a drawn polygon and saves properly
+    """
+
     points = request.POST.getlist('points[]')
     points = [map(float, p.split(',')) for p in points]
 
@@ -25,12 +29,17 @@ def submit_draw(request):
     return {'success': True}
 
 def query(request):
+    """ This view just returns the html with a point to the query page """
+
     points = request.session['points']
 
     return render(request, 'query.html', {'points': points})
 
 @render_to_json()
 def query_area(request):
+    """ This view handles the query if a point is inside the last area drawn
+    """
+
     point = request.GET['point']
 
     import random
