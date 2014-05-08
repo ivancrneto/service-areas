@@ -13,7 +13,7 @@
       serviceAreas.map.mapobj = new google.maps.Map(document.getElementById(
           serviceAreas.map.div), mapOptions);
     }
-  }
+  };
 
   $(document).ready(function() {
     serviceAreas.map.init();
