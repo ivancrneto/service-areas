@@ -13,3 +13,6 @@ def home(request):
 
 def draw(request):
     return render(request, 'draw.html', {})
+
+def query(request):
+    return render(request, 'query.html', {})
