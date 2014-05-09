@@ -3,6 +3,7 @@
 
 {% block extra_js %}
   <script type="text/javascript" src="{% static "js/map.js" %}"></script>
+  <script type="text/javascript" src="{% static "js/map_utils.js" %}"></script>
   <script type="text/javascript" src="{% static "js/query.js" %}"></script>
 
   <script>
@@ -18,6 +19,10 @@
     <button type="checkbox" class="btn btn-success" name="query-area" data-toggle="button">
       <i class="glyphicon glyphicon-map-marker"></i>
       Query Area</button>
+    <button type="checkbox" class="btn btn-default" name="show-coordinates"
+      data-toggle="button">
+      <i class="glyphicon glyphicon-comment"></i>
+      Show Coordinates</button>
     {% csrf_token %}
   </div>
   <div class="col-lg-7">

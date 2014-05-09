@@ -1,6 +1,7 @@
 (function() {
   serviceAreas.query = {
     pol: [],
+    points: [],
     marker: null,
     isquerying: false,
 
@@ -9,8 +10,13 @@
       for(c in coords) {
         for(pol in coords[c]) {
           points = [];
+          var point;
           for(p in coords[c][pol]) {
-            points.push(new google.maps.LatLng(coords[c][pol][p][0], coords[c][pol][p][1]));
+            point = new google.maps.LatLng(coords[c][pol][p][0], coords[c][pol][p][1]);
+            points.push(point);
+
+            // we need to store all points
+            serviceAreas.query.points.push(point);
           }
 
           // draw the polygon in map
@@ -24,10 +30,29 @@
       }
 
       $('button[name="query-area"]').mouseup(serviceAreas.query.handleQuery);
+      $('button[name="show-coordinates"]').click(serviceAreas.query.showCoords);
 
       // here we can use the map object set up in maps.js
       google.maps.event.addListener(serviceAreas.map.mapobj, 'click',
         serviceAreas.query.mapClicked);
+    },
+
+    showCoords: function(e) {
+      e.preventDefault();
+
+      if(!serviceAreas.query.points.length) {
+        return;
+      }
+
+      var points = serviceAreas.query.points;
+      var button = $(this);
+      setTimeout(function(){
+        if(button.hasClass('active')) {
+          serviceAreas.mapUtils.showCoordinates(points, serviceAreas.map.mapobj);
+        } else {
+          serviceAreas.mapUtils.hideCoordinates();
+        }
+      }, 100);
     },
 
     handleQuery: function(e) {

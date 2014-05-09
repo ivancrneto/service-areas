@@ -3,6 +3,7 @@
 
 {% block extra_js %}
   <script type="text/javascript" src="{% static "js/map.js" %}"></script>
+  <script type="text/javascript" src="{% static "js/map_utils.js" %}"></script>
   <script type="text/javascript" src="{% static "js/draw.js" %}"></script>
 {% endblock %}
 
@@ -16,6 +17,10 @@
     <button type="button" class="btn btn-success" name="finish-draw-area" style="display:none;">
       <i class="glyphicon glyphicon-edit"></i>
       Finish Drawing...</button>
+    <button type="checkbox" class="btn btn-default" name="show-coordinates"
+      data-toggle="button">
+      <i class="glyphicon glyphicon-comment"></i>
+      Show Coordinates</button>
     <button type="button" class="btn btn-default" name="clear-area">
       <i class="glyphicon glyphicon-trash"></i>
       Clear</button>

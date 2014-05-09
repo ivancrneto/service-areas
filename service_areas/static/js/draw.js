@@ -17,6 +17,7 @@
         serviceAreas.draw.finish();
       });
       $('button[name="clear-area"]').click(serviceAreas.draw.clear);
+      $('button[name="show-coordinates"]').click(serviceAreas.draw.showCoords);
       $('button[name="submit-area"]').click(serviceAreas.draw.submit);
 
       // here we can use the map object set up in maps.js
@@ -45,6 +46,24 @@
     clear: function() {
       serviceAreas.draw.pol.setMap(null);
       serviceAreas.draw.points = [];
+    },
+
+    showCoords: function(e) {
+      e.preventDefault();
+
+      if(!serviceAreas.draw.points.length) {
+        return;
+      }
+
+      var points = serviceAreas.draw.points;
+      var button = $(this);
+      setTimeout(function(){
+        if(button.hasClass('active')) {
+          serviceAreas.mapUtils.showCoordinates(points, serviceAreas.map.mapobj);
+        } else {
+          serviceAreas.mapUtils.hideCoordinates();
+        }
+      }, 100);
     },
 
     submit: function() {
