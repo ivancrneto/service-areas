@@ -36,7 +36,6 @@
         });
       }
 
-      //serviceAreas.draw.clear();
       serviceAreas.draw.isdrawing = true;
     },
 
@@ -50,14 +49,28 @@
     },
 
     clear: function() {
-      serviceAreas.draw.pol.setMap(null);
+      // remove all pols from the map
+      for(pol in serviceAreas.draw.pols) {
+        serviceAreas.draw.pols[pol].setMap(null);
+      }
+
+      // remove the last drawn pol from the map and also hide coordinates if
+      // they are showing up
+      serviceAreas.draw.currentPol.setMap(null);
+      serviceAreas.mapUtils.hideCoordinates();
+
+      // general clean up
+      serviceAreas.draw.pols = [];
+      serviceAreas.draw.currentPol = null;
       serviceAreas.draw.points = [];
+      serviceAreas.draw.allPoints = [];
     },
 
     showCoords: function(e) {
       e.preventDefault();
 
       if(!serviceAreas.draw.allPoints.length) {
+        serviceAreas.mapUtils.hideCoordinates();
         return;
       }
 
