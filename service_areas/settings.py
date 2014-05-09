@@ -71,7 +71,7 @@ WSGI_APPLICATION = 'service_areas.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.contrib.gis.db.backends.mysql',
         'NAME': 'moziodb',
         'USER': 'mozio',
         'PASSWORD': 'mozio',
