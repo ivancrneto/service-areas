@@ -3,7 +3,7 @@ of our application"""
 
 from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse as r
-from django.contrib.gis.geos import Polygon, MultiPolygon
+from django.contrib.gis.geos import Polygon, MultiPolygon, Point
 from service_areas.util.decorators import render_to_json
 from service_areas.core.models import ServiceArea
 import json
@@ -53,6 +53,10 @@ def query_area(request):
     """
 
     point = request.GET['point']
+    point = [float(p) for p in point.split(',')]
+    point = Point(point)
 
-    import random
-    return {'success': True, 'result': bool(random.randint(0, 1))}
+    area = ServiceArea.objects.order_by('-created')[0]
+    result = area.polygons.contains(point)
+
+    return {'success': True, 'result': result}
