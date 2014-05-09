@@ -57,11 +57,11 @@
     showCoords: function(e) {
       e.preventDefault();
 
-      if(!serviceAreas.draw.points.length) {
+      if(!serviceAreas.draw.allPoints.length) {
         return;
       }
 
-      var points = serviceAreas.draw.points;
+      var points = serviceAreas.draw.allPoints;
       var button = $(this);
       setTimeout(function(){
         if(button.hasClass('active')) {
@@ -117,6 +117,7 @@
 
       var latLng = event.latLng;
       serviceAreas.draw.points.push(latLng);
+      serviceAreas.draw.allPoints.push(latLng);
 
       // to form a polygon, we must have more than 2 points clicked
       if (serviceAreas.draw.points.length >= 2) {
