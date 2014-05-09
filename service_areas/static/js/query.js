@@ -1,19 +1,26 @@
 (function() {
   serviceAreas.query = {
-    pol: null,
+    pol: [],
     isquerying: false,
 
     init: function() {
-      for(p in points) {
-        points[p] = new google.maps.LatLng(points[p][0], points[p][1]);
-      }
+      var points;
+      for(c in coords) {
+        for(pol in coords[c]) {
+          points = [];
+          for(p in coords[c][pol]) {
+            points.push(new google.maps.LatLng(coords[c][pol][p][0], coords[c][pol][p][1]));
+          }
 
-      // draw the polygon in map
-      serviceAreas.query.pol = new google.maps.Polygon({
-        map: serviceAreas.map.mapobj, paths: points,
-        fillColor: "#8888ff", fillOpacity: 0.35,
-        strokeColor: "#0000ff", strokeOpacity: 0.45, clickable: false
-      });
+          // draw the polygon in map
+          serviceAreas.query.pol.push(new google.maps.Polygon({
+            map: serviceAreas.map.mapobj, paths: points,
+            fillColor: "#8888ff", fillOpacity: 0.35,
+            strokeColor: "#0000ff", strokeOpacity: 0.45, clickable: false
+          }));
+
+        }
+      }
 
       $('button[name="query-area"]').mouseup(serviceAreas.query.handleQuery);
 
