@@ -42,7 +42,9 @@
     finish: function() {
       // append currentPol to the array of pols, set current pol and points to
       // null and set isdrawing to false
-      serviceAreas.draw.pols.push(serviceAreas.draw.currentPol);
+      if(serviceAreas.draw.currentPol.getPath()) {
+        serviceAreas.draw.pols.push(serviceAreas.draw.currentPol);
+      }
       serviceAreas.draw.currentPol = null;
       serviceAreas.draw.points = [];
       serviceAreas.draw.isdrawing = false;
