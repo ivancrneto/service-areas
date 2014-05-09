@@ -1,7 +1,9 @@
 (function() {
   serviceAreas.draw = {
-    pol: null, // we start with polygon as null
+    pols: [], // we start with polygons as empty
+    currentPol: null,
     points: [], // points that make the polygon
+    allPoints: [],
     isdrawing: false, // we start with isdrawing control as false
 
     init: function() {
@@ -27,19 +29,23 @@
 
     start: function() {
       // if there is no polygon, we create one
-      if (!serviceAreas.draw.pol) {
-        serviceAreas.draw.pol = new google.maps.Polygon({map: null, paths: [],
+      if (!serviceAreas.draw.currentPol) {
+        serviceAreas.draw.currentPol = new google.maps.Polygon({map: null, paths: [],
           fillColor: "#8888ff", fillOpacity: 0.35,
           strokeColor: "#0000ff", strokeOpacity: 0.45, clickable: false
         });
       }
 
-      serviceAreas.draw.clear();
+      //serviceAreas.draw.clear();
       serviceAreas.draw.isdrawing = true;
     },
 
     finish: function() {
-      // just set is drawing to false;
+      // append currentPol to the array of pols, set current pol and points to
+      // null and set isdrawing to false
+      serviceAreas.draw.pols.push(serviceAreas.draw.currentPol);
+      serviceAreas.draw.currentPol = null;
+      serviceAreas.draw.points = [];
       serviceAreas.draw.isdrawing = false;
     },
 
@@ -114,8 +120,8 @@
 
       // to form a polygon, we must have more than 2 points clicked
       if (serviceAreas.draw.points.length >= 2) {
-          serviceAreas.draw.pol.setPath(serviceAreas.draw.points);
-          serviceAreas.draw.pol.setMap(serviceAreas.map.mapobj);
+          serviceAreas.draw.currentPol.setPath(serviceAreas.draw.points);
+          serviceAreas.draw.currentPol.setMap(serviceAreas.map.mapobj);
       }
     },
 
