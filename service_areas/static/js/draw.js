@@ -89,7 +89,7 @@
 
     submit: function() {
       if(!serviceAreas.draw.pols.length) {
-        alert('You should draw at leat one area before submitting.');
+        alert('You should draw at least one area before submitting.');
         return;
       }
 
