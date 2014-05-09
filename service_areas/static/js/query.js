@@ -1,6 +1,7 @@
 (function() {
   serviceAreas.query = {
     pol: [],
+    marker: null,
     isquerying: false,
 
     init: function() {
@@ -50,6 +51,15 @@
       }
 
       var point = event.latLng.lat() + ',' + event.latLng.lng();
+
+      // add marker to the clicked point to give a better user experience
+      if(serviceAreas.query.marker != null) {
+        serviceAreas.query.marker.setMap(null);
+      }
+      serviceAreas.query.marker = new google.maps.Marker({
+        position: event.latLng,
+        map: serviceAreas.map.mapobj,
+      });
 
       // submit the points is enough
       var url = $('[name="query-url"]').val();
