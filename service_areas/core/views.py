@@ -24,15 +24,12 @@ def submit_draw(request):
     """ This view handles the submission of a drawn polygon and saves properly
     """
 
-    # roughly gettings points from post
-    points = request.POST.getlist('points[]')
-    points = [map(float, p.split(',')) for p in points]
-
+    # getting pols from post
+    pols = json.loads(request.POST['pols'])
     # we need to repeat the first point at the final because geo types require
-    points.append(points[0])
+    pols = [Polygon(points + [points[0]]) for points in pols]
 
-    polygon = Polygon(points)
-    polygons = MultiPolygon(polygon)
+    polygons = MultiPolygon(pols)
 
     area = ServiceArea(polygons=polygons)
     area.save()

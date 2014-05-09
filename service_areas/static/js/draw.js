@@ -86,22 +86,31 @@
     },
 
     submit: function() {
-      if(serviceAreas.draw.points.length < 3) {
-        alert('You should draw an area before submitting.');
+      if(!serviceAreas.draw.pols.length) {
+        alert('You should draw at leat one area before submitting.');
         return;
       }
 
-      // format points that are in latLng Google format to string with commas
-      var points = []
-      for(p in serviceAreas.draw.points) {
-        points.push(serviceAreas.draw.points[p].lat() + ','
-            + serviceAreas.draw.points[p].lng());
-      }
+      var pols = [];
 
-      // submit the points is enough
+      // iterate over the polygons
+      for(pol in serviceAreas.draw.pols) {
+        // for each polygon, get its path
+        var path = serviceAreas.draw.pols[pol].getPath();
+
+        var points = [];
+        for(var p = 0; p < path.length; p++) {
+          point = path.getAt(p);
+          points.push([point.lat(), point.lng()]);
+        }
+
+        pols.push(points);
+      }
+      pols = JSON.stringify(pols)
+
       var url = $(this).data('url');
       var data = {
-        points: points,
+        pols: pols,
         csrfmiddlewaretoken: $('[name="csrfmiddlewaretoken"]').val()
       }
 
